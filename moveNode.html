@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{ margin:0; padding:0; }
+        ul, li{ list-style:none; }
+        .relative{ position:relative; }
+        .clearfix:after{ content:"."; display:block; height:0; clear:both; visibility:hidden; }
+
+        .ul1, .ul2{ float:left; width:120px; height:300px; border:1px solid gold; margin-left:20px; }
+        .ul1 a, .ul2 a{ display:block; text-align:center; cursor:pointer; }
+
+        .member-name{ overflow:hidden; height:30px; line-height:30px; }
+        .member-name span{ float:left; }
+        .member-name .member-del{ float:right; }
+    </style>
+</head>
+<body>
+<div class="relative clearfix">
+    <ul class="ul1">
+        <li><a data-id="1">点我添加到右侧</a></li>
+        <li><a data-id="2">左1</a></li>
+        <li><a data-id="3">左2</a></li>
+        <li><a data-id="4">左3</a></li>
+        <li><a data-id="5">左4</a></li>
+        <li><a data-id="6">左5</a></li>
+    </ul>
+    <span id="moveAll" style="width:100px; height:30px; position:absolute; bottom:0; left:36px; ">点我全部移动</span>
+
+    <ul class="ul2">
+        <li><a>右</a></li>
+    </ul>
+    <span id="removeAll" style="width:100px; height:30px; position:absolute; bottom:0; left:176px; ">点我全部清空</span>
+</div>
+
+<script src="http://static.17g.com/js/jquery.min.js?141124"></script>
+<script src="moveNode.js"></script>
+<script>
+/*
+    moveNode 参数说明：
+     obj: 被添加/删除的节点( 必填 )
+     toTarget: 为要添加到的区域( 选填 )  如果是删除节点则此属性不写
+
+     nodeVary( 默认true ): 布尔值  true 为增加添加到节点( 添加节点到toTarget )  false为删除节点( 删除的节点为toTarget )
+     afterAdd: 给未来元素绑定事件 ( 通过js动态加载的，需要添加此属性 )
+ */
+
+
+    // 移动
+    $('.ul1 > li > a').MoveNode({
+        obj: 'this',
+        toTarget: '.ul2'
+    });
+
+    // 全部移动
+    $('#moveAll').MoveNode({
+        obj: '.ul1 > li > a',
+        toTarget: '.ul2'
+    });
+
+    // 绑定删除
+    $('.member-del').MoveNode({
+        obj: 'this',
+        nodeVary: 'false',
+        afterAdd: '.member-del'
+    });
+
+    // 清空所有
+    $('#removeAll').MoveNode({
+        obj: '.ul2 > li',
+        nodeVary: 'false'
+    });
+
+</script>
+
+</body>
+</html>
